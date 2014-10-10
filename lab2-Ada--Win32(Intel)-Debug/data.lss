@@ -1,0 +1,186 @@
+Source file: ..\data.ads   Tue Sep 23 10:16:41 2014
+
+    1 ------------------------------------
+    2 --- PP-1                         ---
+    3 --- Lab 1: Packages in Ada       ---
+    4 --- F1: C = A + SORT(B) *(MA*MZ) ---
+    5 --- F2: MD = MIN(MA)*MB*MC       ---
+    6 --- F3: A = MB*MC+ MM            ---
+    7 --- Borisov Olexander            ---
+    8 --- IP-22                        ---
+    9 --- 08.09.2014                   ---
+   10 ------------------------------------
+   11 
+   12 with Ada.Text_IO, Ada.Integer_Text_IO;
+   13 use Ada.Text_IO, Ada.Integer_Text_IO;
+   14 
+   15 generic 
+   16         N : Integer;
+   17 
+   18 package Data IS
+   19         type vector is private; 
+   20     type matrix is private;
+   21 
+   22     procedure func1(A, B : in Vector; MA, MZ : in Matrix; C : out vector);
+   23     procedure func2(MA, MB, MC : in Matrix; MD : out Matrix);
+   24     procedure func3(MB, MC, MM : in Matrix; A : out Matrix);
+   25 
+   26         procedure Get_Vector(V : out Vector);
+   27         procedure Get_Matrix(M : out Matrix);
+   28         procedure Print_Vector(V : in Vector);
+   29         procedure print_matrix(M : in matrix);
+   30         procedure Print_Vector(M : in Matrix); -- For Func3
+   31 
+   32         private
+   33         type vector is array (1..N) of Integer;
+   34         type Matrix is array (1..N) of Vector;
+   35 end Data;
+   36 
+   37 package body Data is
+   38         function Multiply_Matrix(M1, M2 : in Matrix) return Matrix is
+   39                 Result : Matrix;        
+   40         begin   
+   41                 for i in 1..N loop
+   42                         Result(i) := (others => 0);
+   43                 end loop;
+   44                 for i in 1..N loop
+   45                         for j in 1..N loop
+   46                                 for K in 1..N loop
+   47                                         Result(i)(j) := result(i)(j) + M1(I)(K) * M2(K)(J);
+   48                                 end loop;
+   49                         end loop;
+   50                 end loop;
+   51                 return Result;
+   52         end Multiply_Matrix;
+   53 
+   54         function Multiply_Vector_And_Matrix(V : in Vector; M : in Matrix) return Vector is
+   55                 Result : Vector := (others => 0);
+   56         begin
+   57                 for i in 1..N loop
+   58                         for j in 1..N loop
+   59                                 Result(i) := Result(I) + V(J) * M(J)(I);
+   60                         end loop;
+   61                 end loop;
+   62                 return Result;
+   63         end Multiply_Vector_And_Matrix;
+   64 
+   65         function sum_vector(V1, v2: in Vector) return Vector is
+   66                 Result : Vector := (others => 0);
+   67         begin
+   68                 for i in 1..N loop
+   69                         Result(i) := V1(i) + v2(i);
+   70                 end loop;
+   71                 return result;
+   72         end Sum_Vector;
+   73 
+   74         function sum_Matrix(M1, M2 : in Matrix) return Matrix is
+   75                 Result : Matrix;
+   76         begin
+   77                 for i in 1..N loop
+   78                         Result(i) := (others => 0);
+   79                 end loop;
+   80                 for i in 1..N loop
+   81                         for j in 1..N loop
+   82                                 Result(i)(j) := M1(i)(j) + M2(i)(j);
+   83                         end loop;
+   84                 end loop;
+   85                 return result;
+   86         end sum_Matrix;
+   87 
+   88         function Sort_Vector(V : in Vector) return Vector is
+   89                 Result : Vector := V;
+   90                 P : Integer;
+   91         begin
+   92                 for i in 1..N loop
+   93                         for J in 2..N loop
+   94                                 if v(i) > V(J)
+   95                                         then p := Result(i);
+   96                                                 Result(i) := Result(j);
+   97                                                 Result(J) := p;
+   98                                 end if;
+   99                         end loop;
+  100                 end loop;
+  101                 return Result;
+  102         end Sort_Vector;
+  103 
+  104         function Min_matrix(M : in Matrix) return Integer is
+  105                 Result : Integer := 0;
+  106         begin
+  107                 Result := M(1)(1);
+  108                 for i in 1..N loop
+  109                         for j in 1..N loop
+  110                                 if M(i)(j) > Result 
+  111                                         Then Result := M(i)(j); 
+  112                                 end if;
+  113                         end loop;
+  114                 end loop;
+  115                 return Result;
+  116         end min_matrix;
+  117 
+  118         function Multiply_Number_and_Matrix(num : in Integer; M : in Matrix) return Matrix is
+  119                 Result : Matrix;
+  120         begin
+  121                 for i in 1..N loop
+  122                         for j in 1..N loop
+  123                                 result(i)(j) := num * m(i)(j);
+  124                         end loop;
+  125                 end loop;
+  126                 return Result;
+  127         end Multiply_Number_and_Matrix;
+  128 
+  129         procedure Get_Vector(V : out Vector) is
+  130         begin
+  131                 for i in 1..N loop
+  132                     Get(V(i));
+  133                 end loop;
+  134         end Get_Vector;
+  135 
+  136         procedure Get_Matrix(M: out Matrix) is
+  137         begin
+  138                 for i in 1..N loop
+  139                         Get_Vector(M(i));
+  140                 end loop;
+  141         end Get_Matrix;
+  142 
+  143         procedure Print_Vector(V: in Vector) is
+  144         begin
+  145                 for i in 1..N loop
+  146                     Put(V(i), 4);
+  147                     Put(" ");
+  148                 end loop;
+  149                 Put_Line("");
+  150         end Print_Vector;
+  151 
+  152         procedure print_matrix(M: in matrix) is
+  153         begin
+  154                 for i in 1..N loop
+  155                         Print_Vector(M(i));
+  156                 end loop;
+  157         end print_matrix;
+  158 
+  159         procedure print_Vector(M: in matrix) is
+  160         begin
+  161                 for i in 1..N loop
+  162                         for J in 1..N loop
+  163                     Put(M(i)(j), 4);
+  164                     Put(" ");
+  165                         end loop;
+  166                 end loop;
+  167         end print_vector;
+  168 
+  169         procedure func1(A, B : in Vector; MA, MZ : in Matrix; C : out vector) is
+  170         begin
+  171                 C := sum_vector(A, Multiply_Vector_And_Matrix(Sort_Vector(B), Multiply_Matrix(MA, MZ)));
+  172         end Func1;
+  173         
+  174         procedure func2(MA, MB, MC : in Matrix; MD : out Matrix) is
+  175         begin
+  176                 MD := Multiply_Matrix(Multiply_Number_and_Matrix(Min_matrix(MA), MB), MC);
+  177         end Func2;
+  178 
+  179     procedure func3(MB, MC, MM : in Matrix; A : out Matrix) is
+  180         begin
+  181                 A := sum_Matrix(Multiply_Matrix(MB, MC), MM);
+  182         end Func3;
+  183 
+  184 end Data;

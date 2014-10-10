@@ -1,0 +1,55 @@
+SOURCE: ..\lab2.ada
+  SRCTIME: 1411375526    Mon Sep 22 11:45:26 2014
+  COMPSW: -eo -e 50 -m n -mr n -gc -ga
+COMPVER: 8.4
+SRCDEP: ..\data.ads
+  SRCDEPTIME: 1411456382    Tue Sep 23 10:13:02 2014
+SRCDEP: ada.ada
+  SRCDEPTIME: 1184916558    Fri Jul 20 10:29:18 2007
+SRCDEP: ada.text_io.spc
+  SRCDEPTIME: 1184916516    Fri Jul 20 10:28:36 2007
+SRCDEP: ada.io_exceptions.dat
+  SRCDEPTIME: 1184916494    Fri Jul 20 10:28:14 2007
+SRCDEP: ada.integer_text_io.ada
+  SRCDEPTIME: 1184916492    Fri Jul 20 10:28:12 2007
+SRCDEP: system.spc
+  SRCDEPTIME: 1184916684    Fri Jul 20 10:31:24 2007
+UNIT: Data_3
+  UKIND: 10    PKG_INST
+  DEP: Data
+    DEPKIND: 8    PKG_BODY CODE_DEPENDENCY
+    DEPSRC: ..\data.ads
+    DEPSRCTIME: 1411456382    Tue Sep 23 10:13:02 2014
+  DEP: Data
+    DEPKIND: 9    PKG_GENERIC
+    DEPSRC: ..\data.ads
+    DEPSRCTIME: 1411456382    Tue Sep 23 10:13:02 2014
+  ELABLINKNAME: data_3__elab_spec
+ENDUNIT
+UNIT: Main
+  UKIND: 2    SUBP_BODY
+  DEP: Ada.Integer_Text_IO
+    DEPKIND: 10    PKG_INST
+    DEPSRC: ada.integer_text_io.ada
+    DEPSRCTIME: 1184916492    Fri Jul 20 10:28:12 2007
+  DEP: Data_3
+    DEPKIND: 10    PKG_INST
+    DEPSRC: ..\lab2.ada
+    DEPSRCTIME: 1411375526    Mon Sep 22 11:45:26 2014
+  DEP: Ada.Text_IO
+    DEPKIND: 7    PKG_DECL
+    DEPSRC: ada.text_io.spc
+    DEPSRCTIME: 1184916516    Fri Jul 20 10:28:36 2007
+  DEP: Ada
+    DEPKIND: 7    PKG_DECL
+    DEPSRC: ada.ada
+    DEPSRCTIME: 1184916558    Fri Jul 20 10:29:18 2007
+  NEED: system.rts.Delay_Interface
+    NEEDKIND: 7    PKG_DECL
+  NEED: system.rts.Tasking_Interface
+    NEEDKIND: 7    PKG_DECL
+  NEED: system.rts.Master_Pkg
+    NEEDKIND: 7    PKG_DECL
+  FEATURES: 16#100a0300001#(-1,-1,-1,-1,-1,1)
+  MAINLINKNAME: main
+ENDUNIT

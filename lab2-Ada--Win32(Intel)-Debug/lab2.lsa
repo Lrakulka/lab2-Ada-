@@ -1,0 +1,98 @@
+Source file: ..\lab2.ada   Tue Sep 23 10:16:43 2014
+
+    1 ------------------------------------
+    2 --- PP-2                         ---
+    3 --- Lab 2: Packages in Ada       ---
+    4 --- F1: C = A + SORT(B) *(MA*MZ) ---
+    5 --- F2: MD = MIN(MA)*MB*MC       ---
+    6 --- F3: A = MB*MC+ MM            ---
+    7 --- Borisov Olexander            ---
+    8 --- IP-22                        ---
+    9 --- 15.09.2014                   ---
+   10 ------------------------------------
+   11 
+   12 with Data;
+   13 package Data_3 is new Data(3);
+   14 with Ada.Text_IO, Data_3, Ada.Integer_Text_IO;
+   15 use Ada.Text_IO, Data_3, Ada.Integer_Text_IO;
+   16 
+   17 procedure Main is
+   18         
+   19         task T1 is              
+   20                 pragma priority(7);
+   21                 Pragma Storage_Size(10000000);
+   22                 --pragma CPU(1)
+   23         end T1;
+   24         task T2 is              
+   25                 pragma priority(4);
+   26                 Pragma Storage_Size(10000000);
+   27                 --pragma CPU(2)
+   28         end T2;
+   29         task T3 is
+   30                 pragma priority(1);
+   31                 Pragma Storage_Size(10000000);
+   32                 --pragma CPU(3)
+   33         end T3;
+   34         
+   35         task body T1 is
+   36                 A, B, func1_result : vector;
+   37                 MA, MZ : Matrix;
+   38         begin   
+   39                 Put_Line("Task T1 started");
+   40                 Put_Line("");
+   41                 Put_Line("Enter the vector A:");
+   42                 Get_Vector(A);
+   43                 Put_Line("Enter the vector B:");
+   44                 Get_Vector(B);
+   45                 Put_Line("Enter the matrix MA:");
+   46                 Get_Matrix(MA);
+   47                 Put_Line("Enter the matrix MZ:");
+   48                 Get_Matrix(MZ);
+   49                 delay (1.0);
+   50                 Func1(A, B, MA, MZ, Func1_Result);              
+   51                 Put_Line("Func1 Result:");
+   52                 Print_Vector(Func1_Result);
+   53                 Put_Line("");
+   54                 Put_Line("Task T1 finished");
+   55         end T1;
+   56         task body T2 is
+   57                 MA, MB, MC, Func2_Result : Matrix;
+   58         begin   
+   59                 delay(3.0);
+   60                 Put_Line("Task T2 started");
+   61                 Put_Line("");
+   62                 Put_Line("Enter the matrix MA:");
+   63                 Get_Matrix(MA);
+   64                 Put_Line("Enter the matrix MB:");
+   65                 Get_Matrix(MB);
+   66                 Put_Line("Enter the matrix MC:");
+   67                 Get_Matrix(MC); 
+   68                 delay(3.0);
+   69                 Func2(MA, MB, MC, Func2_Result);                
+   70                 Put_Line("Func2 Result:");
+   71                 Print_Matrix(Func2_Result);
+   72                 Put_Line("");
+   73                 Put_Line("Task T2 finished");
+   74         end t2;
+   75         task body T3 is
+   76                 MB, MC, MM, func3_Result : Matrix;
+   77         begin   
+   78                 delay(5.0);
+   79                 Put_Line("Task T3 started");
+   80                 Put_Line("");
+   81                 Put_Line("Enter the matrix MB:");
+   82                 Get_Matrix(MB);
+   83                 Put_Line("Enter the matrix MC:");
+   84                 Get_Matrix(MC);
+   85                 Put_Line("Enter the matrix MM:");
+   86                 Get_Matrix(MM);         
+   87                 delay(5.0);
+   88                 Func3(MB, MC, MM, Func3_Result);                
+   89                 Put_Line("Func3 Result:");
+   90                 Print_Vector(Func3_Result);
+   91                 Put_Line("");
+   92                 Put_Line("Task T3 finished");
+   93         end t3;
+   94 begin
+   95         null;
+   96 end Main;
